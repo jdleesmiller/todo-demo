@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+#
+# Start up the CI environment and run the tests.
+#
+
+source "${BASH_SOURCE%/*}/.helpers.sh"
+set -x
+
+docker_compose_ci build
+
+docker_compose_ci up -d postgres
+docker_compose_ci exec postgres bash -c "$WAIT_FOR_PG_ISREADY"
+
+docker_compose_ci run --rm todo npx knex migrate:latest
+
+docker_compose_ci up -d
+docker_compose_ci exec todo npm test "$@"
+
+# And then we'd push our docker image(s) to a registry...

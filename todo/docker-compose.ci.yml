@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  todo:
+    build: .
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres/postgres
+
+  postgres:
+    image: postgres
