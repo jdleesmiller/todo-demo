@@ -1,0 +1,7 @@
+version: '3.7'
+
+services:
+  todo:
+    command: ['npx', 'nodemon', 'server.js']
+    ports:
+      - '3000:8080'

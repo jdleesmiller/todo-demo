@@ -1,0 +1,26 @@
+version: '3.7'
+
+# Use the network set up in the shared compose file.
+networks:
+  default:
+    external: true
+    name: todo_${ENV}_default
+
+services:
+  todo:
+    build:
+      context: .
+      target: development
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres/${ENV}
+    external_links:
+      - todo_postgres_1:postgres
+    volumes:
+      - ./:/srv/todo:delegated
+      - node_modules:/srv/todo/node_modules
+
+# Use the volumes set up in the shared compose file.
+volumes:
+  node_modules:
+    name: todo_node_modules
+    external: true
