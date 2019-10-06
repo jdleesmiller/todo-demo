@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
-set -e
+source "${BASH_SOURCE%/*}/.helpers.sh"
 
 read -p "THIS WILL DESTROY EVERYTHING. Ctrl-C to abort or enter to continue."
 
-docker-compose down --volumes
+for ENV in development test
+do
+  docker_compose_in_env down --volumes
+done
+
+docker_compose_shared down --volumes

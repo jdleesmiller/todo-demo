@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+#
+# Open psql postgres database console in given environment.
+#
+
+source "${BASH_SOURCE%/*}/.helpers.sh"
+
+get_env $1
+shift
+docker_compose_shared exec postgres psql -h postgres -U postgres "$ENV"

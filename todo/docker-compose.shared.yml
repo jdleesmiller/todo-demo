@@ -1,0 +1,15 @@
+version: '3.7'
+
+networks:
+  development_default:
+  test_default:
+
+services:
+  postgres:
+    image: postgres:12
+    networks:
+      - development_default
+      - test_default
+
+volumes:
+  node_modules:

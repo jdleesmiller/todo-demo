@@ -4,8 +4,8 @@
   "description": "Docker Compose demo app: a TODO list",
   "private": true,
   "scripts": {
-    "test": "NODE_ENV=test mocha 'test/**/*.test.js'",
-    "test:model": "NODE_ENV=test mocha 'test/model/**/*.test.js'"
+    "test": "mocha 'test/**/*.test.js'",
+    "test:model": "mocha 'test/model/**/*.test.js'"
   },
   "keywords": [],
   "author": "John Lees-Miller",

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
-set -e
+source "${BASH_SOURCE%/*}/.helpers.sh"
 
-docker-compose run --rm todo npm test "$@"
+ENV=test
+
+docker_compose_in_env run --rm todo npm test "$@"

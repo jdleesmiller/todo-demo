@@ -1,0 +1,5 @@
+version: '3.7'
+
+services:
+  todo:
+    command: ['npx', 'nodemon', 'server.js']
