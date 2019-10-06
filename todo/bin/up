@@ -4,9 +4,7 @@ source "${BASH_SOURCE%/*}/.helpers.sh"
 
 docker_compose_shared up -d
 
-# Wait for postgres to come up.
-docker_compose_shared exec postgres \
-  bash -c 'while ! pg_isready --quiet; do sleep 1; done;'
+docker_compose_shared exec postgres bash -c "$WAIT_FOR_PG_ISREADY"
 
 for ENV in development test
 do

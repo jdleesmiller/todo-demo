@@ -10,3 +10,4 @@ do
 done
 
 docker_compose_shared down --volumes
+docker_compose_ci down --volumes

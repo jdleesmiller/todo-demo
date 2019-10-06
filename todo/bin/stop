@@ -7,3 +7,4 @@ do
   docker_compose_in_env stop
 done
 docker_compose_shared stop
+docker_compose_ci stop
