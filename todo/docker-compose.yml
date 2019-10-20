@@ -13,11 +13,11 @@ services:
     ports:
       - '3000:8080'
     volumes:
-      - .:/srv/todo
-      - todo_node_modules:/srv/todo/node_modules
+      - ./backend:/srv/todo/backend
+      - todo_backend_node_modules:/srv/todo/backend/node_modules
 
   postgres:
     image: postgres:12
 
 volumes:
-  todo_node_modules:
+  todo_backend_node_modules:
