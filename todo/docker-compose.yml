@@ -4,17 +4,31 @@ services:
   backend:
     build:
       context: .
-      target: development
+      target: development-backend
     command: npx nodemon server.js
     depends_on:
       - postgres
     environment:
       PORT: 8080
-    ports:
-      - '8080:8080'
     volumes:
       - ./backend:/srv/todo/backend
       - backend_node_modules:/srv/todo/backend/node_modules
+
+  frontend:
+    build:
+      context: .
+      target: development-frontend
+    command: npx webpack-dev-server
+    depends_on:
+      - backend
+    environment:
+      HOST: frontend
+      PORT: 8080
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./frontend:/srv/todo/frontend
+      - frontend_node_modules:/srv/todo/frontend/node_modules
 
   postgres:
     image: postgres:12
@@ -23,3 +37,4 @@ services:
 
 volumes:
   backend_node_modules:
+  frontend_node_modules:
