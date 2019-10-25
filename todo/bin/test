@@ -3,3 +3,4 @@
 set -e
 
 docker-compose run --rm todo npm test "$@"
+docker-compose run --rm todo-frontend npm test "$@"

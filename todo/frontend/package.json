@@ -1,0 +1,44 @@
+{
+  "name": "todo-frontend",
+  "version": "1.0.0",
+  "description": "Docker Compose demo app: a TODO list - frontend",
+  "private": true,
+  "scripts": {
+    "build": "NODE_ENV=production webpack",
+    "start": "webpack-dev-server",
+    "test": "mocha --require test/setup --require @babel/register",
+    "test:server": "webpack-dev-server 'mocha-loader!./test/index.js' --hot --inline --output-filename test.js"
+  },
+  "keywords": [],
+  "author": "John Lees-Miller",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "core-js": "^3.3.4",
+    "prop-types": "^15.7.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "regenerator-runtime": "^0.13.3",
+    "whatwg-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
+    "@babel/register": "^7.6.2",
+    "@testing-library/react": "^8.0.9",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.2.0",
+    "fetch-mock": "^7.5.1",
+    "html-webpack-plugin": "^3.2.0",
+    "jsdom": "^15.2.0",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^6.2.2",
+    "mocha-loader": "^2.0.1",
+    "style-loader": "^0.23.1",
+    "testdouble": "^3.12.4",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.9.0"
+  }
+}

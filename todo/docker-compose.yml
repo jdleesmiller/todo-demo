@@ -4,20 +4,33 @@ services:
   todo:
     build:
       context: .
-      target: development
+      target: development-backend
     command: npx nodemon server.js
     depends_on:
       - postgres
     environment:
       PORT: 8080
-    ports:
-      - '3000:8080'
     volumes:
       - ./backend:/srv/todo/backend
       - todo_backend_node_modules:/srv/todo/backend/node_modules
+
+  todo-frontend:
+    build:
+      context: .
+      target: development-frontend
+    depends_on:
+      - todo
+    environment:
+      PORT: 8080
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./frontend:/srv/todo/frontend
+      - todo_frontend_node_modules:/srv/todo/frontend/node_modules
 
   postgres:
     image: postgres:12
 
 volumes:
   todo_backend_node_modules:
+  todo_frontend_node_modules:

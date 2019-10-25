@@ -7,6 +7,8 @@ const app = express()
 
 app.use(bodyParser.json())
 
+app.use(express.static('dist'))
+
 // Is the service up?
 app.get('/status', (req, res) => res.sendStatus(204))
 
