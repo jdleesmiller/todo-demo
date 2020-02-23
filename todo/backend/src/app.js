@@ -1,7 +1,7 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 
-const Task = require('./task')
+const { Task } = require('storage')
 
 const app = express()
 

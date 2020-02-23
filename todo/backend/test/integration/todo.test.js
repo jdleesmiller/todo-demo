@@ -1,8 +1,8 @@
 const assert = require('assert')
 
-const cleanup = require('../support/cleanup')
+const cleanup = require('storage/test/support/cleanup')
 
-const Task = require('../../src/task')
+const { Task } = require('storage')
 
 // Ensure the global test server is started, for this.testClient.
 require('../support/test-server')

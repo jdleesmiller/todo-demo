@@ -20,6 +20,8 @@ services:
     volumes:
       - ./backend:/srv/todo/backend
       - backend_node_modules:/srv/todo/backend/node_modules
+      - ./storage:/srv/todo/storage
+      - storage_node_modules:/srv/todo/storage/node_modules
 
   frontend:
     build:
@@ -42,4 +44,7 @@ volumes:
     external: true
   frontend_node_modules:
     name: todo_frontend_node_modules
+    external: true
+  storage_node_modules:
+    name: todo_storage_node_modules
     external: true

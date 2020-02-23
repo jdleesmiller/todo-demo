@@ -16,3 +16,4 @@ services:
 volumes:
   backend_node_modules:
   frontend_node_modules:
+  storage_node_modules:

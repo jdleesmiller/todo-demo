@@ -14,7 +14,8 @@ do
     su - postgres -c "psql $ENV -c '' || createdb $ENV"
 
   # Run migrations in this environment.
-  docker_compose_in_env $ENV run --rm backend npx knex migrate:latest
+  docker_compose_in_env $ENV run --rm --workdir=/srv/todo/storage backend \
+    npx knex migrate:latest
 done
 
 docker_compose_in_env development up -d
