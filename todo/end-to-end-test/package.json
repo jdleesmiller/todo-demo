@@ -1,0 +1,17 @@
+{
+  "name": "end-to-end-test",
+  "version": "1.0.0",
+  "description": "Docker Compose demo app: a TODO list - end-to-end test",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --timeout 10000"
+  },
+  "keywords": [],
+  "author": "John Lees-Miller",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^7.0.1",
+    "puppeteer": "^2.1.1",
+    "storage": "file:../storage"
+  }
+}

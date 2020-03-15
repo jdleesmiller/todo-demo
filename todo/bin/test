@@ -4,3 +4,5 @@ source "${BASH_SOURCE%/*}/.helpers.sh"
 
 docker_compose_in_env test run --rm backend npm test "$@"
 docker_compose_in_env test run --rm frontend npm test "$@"
+docker_compose_in_env test --file docker-compose.end-to-end-test.yml \
+  run --rm end-to-end-test

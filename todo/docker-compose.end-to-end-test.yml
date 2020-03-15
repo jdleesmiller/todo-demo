@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  end-to-end-test:
+    build:
+      context: .
+      dockerfile: end-to-end-test/Dockerfile
+    cap_add:
+      - SYS_ADMIN # for puppeteer
+    command: npm test
+    depends_on:
+      - frontend
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres/test
+      BASE_URL: http://frontend:8080
+    volumes:
+      - ./end-to-end-test:/srv/todo/end-to-end-test
+      - end_to_end_test_node_modules:/srv/todo/end-to-end-test/node_modules
+      - ./storage:/srv/todo/storage
+      - storage_node_modules:/srv/todo/storage/node_modules
+
+volumes:
+  end_to_end_test_node_modules:
+  storage_node_modules:
+    name: todo_storage_node_modules
+    external: true
