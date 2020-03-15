@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  todo:
+    build:
+      context: .
+      target: development
+    command: npx nodemon server.js
+    depends_on:
+      - postgres
+    environment:
+      PORT: 8080
+    ports:
+      - '8080:8080'
+    volumes:
+      - .:/srv/todo
+      - todo_node_modules:/srv/todo/node_modules
+
+  postgres:
+    image: postgres:12
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+volumes:
+  todo_node_modules:
