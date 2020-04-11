@@ -1,11 +1,9 @@
 #
-# Backend for Development
+# Common Dependencies
 #
-FROM node:12 AS development-backend
+FROM node:12 AS base
 
-RUN mkdir -p /srv/todo/backend &&\
-  mkdir -p /srv/todo/storage &&\
-  chown -R node:node /srv/todo
+RUN mkdir -p /srv/todo/storage && chown -R node:node /srv/todo
 
 USER node
 
@@ -14,6 +12,13 @@ WORKDIR /srv/todo/storage
 COPY --chown=node:node storage/package.json storage/package-lock.json ./
 
 RUN npm install --quiet
+
+#
+# Backend for Development
+#
+FROM base AS development-backend
+
+RUN mkdir /srv/todo/backend
 
 WORKDIR /srv/todo/backend
 
@@ -24,11 +29,9 @@ RUN npm install --quiet
 #
 # Frontend for Development
 #
-FROM node:12 AS development-frontend
+FROM base AS development-frontend
 
-RUN mkdir -p /srv/todo/frontend/dist && chown -R node:node /srv/todo
-
-USER node
+RUN mkdir /srv/todo/frontend
 
 WORKDIR /srv/todo/frontend
 

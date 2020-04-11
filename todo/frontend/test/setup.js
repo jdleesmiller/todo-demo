@@ -2,8 +2,10 @@
 require('@babel/register')
 require('regenerator-runtime/runtime')
 
+// jsdom does not (yet!) have fetch.
+global.fetch = require('node-fetch')
+
 require('jsdom-global')('', {
-  // We rely on window.location.origin, which is null with the default
-  // about:blank url.
-  url: 'http://example.com'
+  // This sets window.location.origin, which determines where API requests go.
+  url: process.env.BASE_URL
 })

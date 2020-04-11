@@ -34,6 +34,7 @@
     "mocha": "^6.2.2",
     "mocha-loader": "^2.0.1",
     "node-fetch": "^2.6.0",
+    "storage": "file:../storage",
     "style-loader": "^0.23.1",
     "testdouble": "^3.12.4",
     "webpack": "^4.41.2",

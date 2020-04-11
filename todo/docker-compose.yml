@@ -36,6 +36,8 @@ services:
     volumes:
       - ./frontend:/srv/todo/frontend
       - frontend_node_modules:/srv/todo/frontend/node_modules
+      - ./storage:/srv/todo/storage
+      - storage_node_modules:/srv/todo/storage/node_modules
 
 # Use the node_modules volumes set up in the shared compose file.
 volumes:
