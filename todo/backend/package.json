@@ -16,7 +16,7 @@
     "storage": "file:../storage"
   },
   "devDependencies": {
-    "mocha": "^6.2.0",
+    "mocha": "^6.2.3",
     "node-fetch": "^2.6.0",
     "nodemon": "^1.19.1"
   }
