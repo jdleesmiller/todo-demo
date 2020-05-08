@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  todo:
+  backend:
     build:
       context: .
       target: development
@@ -13,8 +13,8 @@ services:
     ports:
       - '8080:8080'
     volumes:
-      - .:/srv/todo
-      - todo_node_modules:/srv/todo/node_modules
+      - ./backend:/srv/todo/backend
+      - backend_node_modules:/srv/todo/backend/node_modules
 
   postgres:
     image: postgres:12
@@ -22,4 +22,4 @@ services:
       POSTGRES_HOST_AUTH_METHOD: trust
 
 volumes:
-  todo_node_modules:
+  backend_node_modules:
