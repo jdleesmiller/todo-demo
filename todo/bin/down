@@ -1,7 +1,29 @@
 #!/usr/bin/env bash
 
-set -e
+#
+# Delete all containers and volumes. If called as `bin/down everything`, also
+# delete the shared containers and volumes.
+#
 
-read -p "THIS WILL DESTROY EVERYTHING. Ctrl-C to abort or enter to continue."
+source "${BASH_SOURCE%/*}/.helpers.sh"
 
-docker-compose down --volumes
+for ENV in development test
+do
+  docker_compose_in_env $ENV down --volumes
+done
+
+if [ "$1" == "everything" ]; then
+  read -p "THIS WILL DESTROY YOUR DATA. Ctrl-C to abort or enter to continue."
+
+  docker_compose_in_env shared down --volumes
+else
+  docker_compose_in_env shared stop
+
+  # Remove any node_modules volumes that might be stale, but keep other data.
+  ADD_PROJECT_NAME="s/^/todo_/"
+  docker_compose_in_env shared config --volumes | \
+    grep node_modules | sed "$ADD_PROJECT_NAME" | while read VOLUME
+  do
+    docker volume rm --force $VOLUME
+  done
+fi

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+source "${BASH_SOURCE%/*}/.helpers.sh"
 
-docker-compose run --rm backend npm test "$@"
-docker-compose run --rm frontend npm test "$@"
+docker_compose_in_env test run --rm backend npm test "$@"
+docker_compose_in_env test run --rm frontend npm test "$@"

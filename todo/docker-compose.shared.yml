@@ -1,0 +1,18 @@
+version: '3.7'
+
+networks:
+  development_default:
+  test_default:
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+    networks:
+      - development_default
+      - test_default
+
+volumes:
+  backend_node_modules:
+  frontend_node_modules:

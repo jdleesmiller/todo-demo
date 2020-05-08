@@ -1,15 +1,22 @@
 version: '3.7'
 
+# Use the network set up in the shared compose file.
+networks:
+  default:
+    external: true
+    name: todo_${ENV}_default
+
 services:
   backend:
     build:
       context: .
       target: development-backend
     command: npx nodemon server.js
-    depends_on:
-      - postgres
     environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres/${ENV}
       PORT: 8080
+    external_links:
+      - todo_postgres_1:postgres
     volumes:
       - ./backend:/srv/todo/backend
       - backend_node_modules:/srv/todo/backend/node_modules
@@ -24,17 +31,15 @@ services:
     environment:
       HOST: frontend
       PORT: 8080
-    ports:
-      - '8080:8080'
     volumes:
       - ./frontend:/srv/todo/frontend
       - frontend_node_modules:/srv/todo/frontend/node_modules
 
-  postgres:
-    image: postgres:12
-    environment:
-      POSTGRES_HOST_AUTH_METHOD: trust
-
+# Use the node_modules volumes set up in the shared compose file.
 volumes:
   backend_node_modules:
+    name: todo_backend_node_modules
+    external: true
   frontend_node_modules:
+    name: todo_frontend_node_modules
+    external: true

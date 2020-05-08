@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+source "${BASH_SOURCE%/*}/.helpers.sh"
+
+for ENV in development test shared
+do
+  docker_compose_in_env $ENV stop
+done
