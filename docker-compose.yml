@@ -10,6 +10,7 @@ services:
   backend:
     build:
       context: .
+      dockerfile: todo/Dockerfile
       target: development-backend
     command: npx nodemon server.js
     environment:
@@ -18,7 +19,7 @@ services:
     external_links:
       - todo_postgres_1:postgres
     volumes:
-      - ./backend:/srv/todo/backend
+      - ./todo/backend:/srv/todo/backend
       - backend_node_modules:/srv/todo/backend/node_modules
       - ./storage:/srv/todo/storage
       - storage_node_modules:/srv/todo/storage/node_modules
@@ -26,6 +27,7 @@ services:
   frontend:
     build:
       context: .
+      dockerfile: todo/Dockerfile
       target: development-frontend
     command: npx webpack-dev-server
     depends_on:
@@ -34,7 +36,7 @@ services:
       HOST: frontend
       PORT: 8080
     volumes:
-      - ./frontend:/srv/todo/frontend
+      - ./todo/frontend:/srv/todo/frontend
       - frontend_node_modules:/srv/todo/frontend/node_modules
       - ./storage:/srv/todo/storage
       - storage_node_modules:/srv/todo/storage/node_modules

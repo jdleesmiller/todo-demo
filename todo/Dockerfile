@@ -22,7 +22,7 @@ RUN mkdir /srv/todo/backend
 
 WORKDIR /srv/todo/backend
 
-COPY --chown=node:node backend/package.json backend/package-lock.json ./
+COPY --chown=node:node todo/backend/package.json todo/backend/package-lock.json ./
 
 RUN npm install --quiet
 
@@ -35,7 +35,7 @@ RUN mkdir /srv/todo/frontend
 
 WORKDIR /srv/todo/frontend
 
-COPY frontend/package.json frontend/package-lock.json ./
+COPY todo/frontend/package.json todo/frontend/package-lock.json ./
 
 RUN npm install --quiet
 
