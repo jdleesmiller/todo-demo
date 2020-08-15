@@ -1,6 +1,7 @@
 import React from 'react'
 
 import NewTask from './new-task'
+import Search from './search'
 import Task from './task'
 
 import taskStore from '../task-store'
@@ -54,6 +55,11 @@ export default class App extends React.Component {
         <div className="row">
           <div className="col">
             <h1 className="mt-5 mb-3 text-center">TO DO</h1>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <Search />
           </div>
         </div>
         <div className="row">

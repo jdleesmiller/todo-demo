@@ -1,7 +1,7 @@
 {
-  "name": "todo",
+  "name": "todo-search",
   "version": "1.0.0",
-  "description": "Docker Compose demo app: a TODO list",
+  "description": "Docker Compose demo app: a TODO list - search service",
   "private": true,
   "scripts": {
     "test": "NODE_ENV=test mocha 'test/**/*.test.js'",
@@ -13,11 +13,11 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "node-fetch": "^2.6.0",
     "storage": "file:../storage"
   },
   "devDependencies": {
     "mocha": "^6.2.3",
+    "node-fetch": "^2.6.0",
     "nodemon": "^2.0.4"
   }
 }

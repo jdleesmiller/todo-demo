@@ -24,6 +24,15 @@ describe('todo', function() {
       const body = await response.json()
       assert.strictEqual(body.tasks.length, 2)
       assert.strictEqual(body.tasks[0].description, 'foo')
+      assert.strictEqual(body.tasks[1].description, 'bar')
+    })
+
+    it('searches the tasks', async function() {
+      const response = await this.testClient.get('/api/tasks?q=foo')
+      assert(response.ok)
+      const body = await response.json()
+      assert.strictEqual(body.tasks.length, 1)
+      assert.strictEqual(body.tasks[0].description, 'foo')
     })
 
     it('completes a task', async function() {

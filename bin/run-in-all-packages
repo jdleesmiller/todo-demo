@@ -6,5 +6,6 @@ docker_compose_in_env development run \
   --workdir /srv/todo/storage --rm backend "$@"
 docker_compose_in_env development run --rm backend "$@"
 docker_compose_in_env development run --rm frontend "$@"
+docker_compose_in_env development run --rm search "$@"
 docker_compose_in_env test --file docker-compose.end-to-end-test.yml \
   run --rm end-to-end-test "$@"

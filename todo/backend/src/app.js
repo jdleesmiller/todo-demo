@@ -1,5 +1,8 @@
+const util = require('util')
 const bodyParser = require('body-parser')
 const express = require('express')
+const fetch = require('node-fetch')
+const streamPipeline = util.promisify(require('stream').pipeline)
 
 const { Task } = require('storage')
 
@@ -15,8 +18,20 @@ app.get('/status', (req, res) => res.sendStatus(204))
 // List tasks.
 app.get('/api/tasks', async (req, res, next) => {
   try {
-    const tasks = await Task.query().orderBy('id')
-    res.json({ tasks })
+    if (req.query.q) {
+      const searchUrl = new URL(`http://search:${process.env.PORT}/api/tasks`)
+      searchUrl.searchParams.set('q', req.query.q)
+
+      const response = await fetchJson(searchUrl)
+      if (response.ok) {
+        streamPipeline(response.body, res)
+      } else {
+        throw new Error(`search failed: status ${response.status}`)
+      }
+    } else {
+      const tasks = await Task.query().orderBy('id')
+      res.json({ tasks })
+    }
   } catch (error) {
     next(error)
   }
@@ -53,5 +68,15 @@ app.delete('/api/tasks/:id', async (req, res, next) => {
     next(error)
   }
 })
+
+async function fetchJson(url, options = {}) {
+  options.headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    ...options.headers
+  }
+  const response = await fetch(url, options)
+  return response
+}
 
 module.exports = app

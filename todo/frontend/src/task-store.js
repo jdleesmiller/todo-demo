@@ -3,6 +3,7 @@ const TASKS_API_ROOT = '/api/tasks'
 class TaskStore {
   constructor() {
     this.tasks = []
+    this.query = ''
     this.listener = () => {}
   }
 
@@ -15,11 +16,16 @@ class TaskStore {
   }
 
   async list() {
-    const response = await fetchJson(rootUrl())
+    const response = await fetchJson(listUrl(this.query))
     if (!response.ok) throw new Error('Failed to list tasks')
     const body = await response.json()
     this.tasks = body.tasks
     this.listener()
+  }
+
+  async search(query) {
+    this.query = query
+    await this.list()
   }
 
   async create(description) {
@@ -58,6 +64,12 @@ async function fetchJson(url, options) {
 
 function rootUrl() {
   return new URL(TASKS_API_ROOT, window.location.origin)
+}
+
+function listUrl(query) {
+  const url = rootUrl()
+  if (query) url.searchParams.set('q', query)
+  return url
 }
 
 function itemUrl(id) {

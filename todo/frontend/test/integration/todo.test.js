@@ -45,4 +45,40 @@ describe('TO DO App', function() {
 
     assert.strictEqual(await Task.query().resultSize(), 0)
   })
+
+  it('filters tasks', async function() {
+    await Task.query().insert(
+      ['foo', 'foo bar', 'baz'].map(description => ({ description }))
+    )
+
+    const { getByText, findByText, getByLabelText } = render(<App />)
+
+    const description = getByLabelText('description to search for')
+    const search = getByText('Search')
+
+    await findByText('foo')
+    await findByText('foo bar')
+    await findByText('baz')
+
+    // Apply search query for foo, which hides baz.
+    fireEvent.change(description, { target: { value: 'foo' } })
+    fireEvent.click(search)
+
+    await waitForElementToBeRemoved(() => getByText('baz'))
+    await findByText('foo')
+    await findByText('foo bar')
+
+    // The search query is remembered when completing actions.
+    fireEvent.click(getByLabelText('mark foo bar complete'))
+    await waitForElementToBeRemoved(() => getByText('foo bar'))
+
+    await findByText('foo')
+
+    // Clear search query.
+    fireEvent.change(description, { target: { value: '' } })
+    fireEvent.click(search)
+
+    await findByText('foo')
+    await findByText('baz')
+  })
 })
